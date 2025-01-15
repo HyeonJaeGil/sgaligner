@@ -1,0 +1,9 @@
+yacs 
+scipy 
+opencv-python 
+matplotlib 
+open3d
+tensorboard
+trimesh
+plyfile
+coloredlogs
