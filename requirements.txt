@@ -7,3 +7,7 @@ tensorboard
 trimesh
 plyfile
 coloredlogs
+ipdb
+torch_geometric
+torchsummary
+pygcransac

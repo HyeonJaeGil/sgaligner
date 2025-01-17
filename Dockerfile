@@ -1,4 +1,13 @@
-FROM pytorch/pytorch:2.2.2-cuda12.1-cudnn8-runtime
+FROM pytorch/pytorch:2.2.2-cuda12.1-cudnn8-devel
+
+# Arguments to build Docker Image using CUDA
+ARG USE_CUDA=0
+ARG TORCH_ARCH=
+
+ENV AM_I_DOCKER True
+ENV BUILD_WITH_CUDA "${USE_CUDA}"
+ENV TORCH_CUDA_ARCH_LIST "${TORCH_ARCH}"
+ENV CUDA_HOME /usr/local/cuda-12.1/
 
 RUN mkdir -p /home/appuser/sgaligner
 COPY . /home/appuser/sgaligner/
@@ -26,6 +35,8 @@ RUN apt install -y \
     
 RUN apt clean
 
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
 RUN echo "[user]" >> /root/.gitconfig && \
     echo "	email = now9728@gmail.com" >> /root/.gitconfig && \
