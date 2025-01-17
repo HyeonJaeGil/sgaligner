@@ -23,7 +23,9 @@ class AlignerRegTester(SingleTester):
     def __init__(self, cfg, parser):
         super().__init__(cfg, parser=parser)
 
-        self.run_reg = cfg.registration
+        if self.args.reg_snapshot is not None:
+            self.run_reg = True
+        # self.run_reg = cfg.registration
 
         # Model Specific params
         self.modules = cfg.modules
