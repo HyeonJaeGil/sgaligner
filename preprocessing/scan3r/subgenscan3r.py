@@ -178,6 +178,11 @@ class SubGenScan3R(Dataset):
         ply_data = scan3r.load_ply_data(self.scene_dir, scan_id, self.label_file_name)
         scene_pts = np.stack((ply_data['vertex']['x'], ply_data['vertex']['y'], ply_data['vertex']['z'])).transpose()
         if scene_pts.shape[0] == 0: return
+
+        # save ply data into npy
+        if self.split == "val":
+            pcl, _ = scan3r.create_ply_data(ply_data, np.ones(scene_pts.shape[0]).astype('bool'))
+            np.save(osp.join(self.scene_dir, scan_id, self.save_name), pcl)
         
         scene_pcd = open3d.make_open3d_point_cloud(visualisation.remove_ceiling(scene_pts))
 
